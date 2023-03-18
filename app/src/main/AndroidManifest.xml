@@ -26,7 +26,8 @@
 
         <activity
             android:name=".MainActivity"
-            android:exported="true"/>
+            android:exported="true"
+            android:theme="@style/SplashScreenTheme"/>
 
         <meta-data
             android:name="preloaded_fonts"
