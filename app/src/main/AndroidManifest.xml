@@ -14,8 +14,14 @@
         android:theme="@style/Theme.EcoBin"
         tools:targetApi="31">
         <activity
+            android:name=".signupUserActivity"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:theme="@style/SplashScreenTheme"/>
+        <activity
             android:name=".SplashScreen"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,11 +29,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/SplashScreenTheme"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashScreenTheme" />
 
         <meta-data
             android:name="preloaded_fonts"

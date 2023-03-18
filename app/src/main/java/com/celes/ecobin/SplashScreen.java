@@ -21,7 +21,7 @@ public class SplashScreen extends AppCompatActivity {
                 startActivity(intent);
                 finish(); //pop activity from stack
             }
-        },1000);
+        },750);
 
 
     }

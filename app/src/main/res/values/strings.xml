@@ -3,4 +3,23 @@
     <string name="ecobin"><b>EcoBin</b></string>
     <string name="login_text"><b>Hi,\nPlease Login</b></string>
     <string name="email"><b>Email</b></string>
+    <string name="username"><b>Username</b></string>
+    <string name="emailHint">Enter Your Email</string>
+    <string name="usernameHint">Enter Your Username</string>
+    <string name="password"><b>Password</b></string>
+    <string name="passwordHint">Enter Your Password</string>
+    <string name="passwordFor">Forgot Your Password?\u0020</string>
+    <string name="forgotPassword"><b><u>Click Here</u></b></string>
+    <string name="login"><b>Login</b></string>
+    <string name="create_account"><u>Create Account</u></string>
+    <string name="temp">No Error pls</string>
+    <string name="don_t_have_and_account">Don\'t Have and Account?\u0020</string>
+    <string name="create_n_account"><b>Create\nAccount</b></string>
+    <string name="full_name">Full Name</string>
+    <string name="enter_your_password_again">Enter Your Password Again</string>
+    <string name="create_accountBtn">Create Account</string>
+    <string-array name="loginType">
+        <item><b>User</b></item>
+        <item><b>Worker</b></item>
+    </string-array>
 </resources>
