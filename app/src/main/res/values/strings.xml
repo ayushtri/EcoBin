@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">EcoBin</string>
+    <string name="ecobin"><b>EcoBin</b></string>
 </resources>
