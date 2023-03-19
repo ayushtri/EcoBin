@@ -22,4 +22,6 @@
         <item><b>User</b></item>
         <item><b>Worker</b></item>
     </string-array>
+    <string name="loginInstead"><b><u>Login Instead</u></b></string>
+    <string name="already_a_user">Already a User?\u0020</string>
 </resources>
