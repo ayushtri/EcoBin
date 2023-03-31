@@ -16,4 +16,8 @@
     <style name="SplashScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:statusBarColor">#50C878</item>
     </style>
+    <style name="insideTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:statusBarColor">#673AB7</item>
+        <item name="colorPrimary">@color/purple_500</item>
+    </style>
 </resources>

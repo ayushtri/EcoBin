@@ -24,4 +24,18 @@
     </string-array>
     <string name="loginInstead"><b><u>Login Instead</u></b></string>
     <string name="already_a_user">Already a User?\u0020</string>
+    <string name="phone_no"><b>Phone No.</b></string>
+    <string name="enter_your_phone_number">Enter Your Phone Number</string>
+    <string name="not_received_email">Not received verification email?\u0020</string>
+    <string name="resend"><u>Resend</u></string>
+    <string name="logout">Logout</string>
+    <string name="profile"><b>Profile</b></string>
+    <string name="about_us"><b>About Us</b></string>
+    <string name="logoutNB"><b>Logout</b></string>
+    <string name="navOpen">Open Navigation drawer</string>
+    <string name="navClose">Close Navigation drawer</string>
+    <string name="aboutUS">This app is built using Android Studio in Java Language and uses Google firebase as the database.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
 </resources>

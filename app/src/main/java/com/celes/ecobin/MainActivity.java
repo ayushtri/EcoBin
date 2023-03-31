@@ -1,7 +1,11 @@
 package com.celes.ecobin;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,10 +17,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
     EditText loginID,password;
     TextView signUp,forgotPassword, fyp, noAcc, emailTextView;
     Button login;
+    ProgressDialog progressDialog;
+    String emailPattern="^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +52,11 @@ public class MainActivity extends AppCompatActivity {
                 fyp = findViewById(R.id.fypTextView);
                 noAcc = findViewById(R.id.noAcc);
                 emailTextView = findViewById(R.id.emailTextView);
-
+                progressDialog = new ProgressDialog(MainActivity.this);
+                mAuth = FirebaseAuth.getInstance();
 
                 switch (spinnerVal) {
                     case "User":
-                        Toast.makeText(MainActivity.this, spinnerVal, Toast.LENGTH_SHORT).show();
                         fyp.setText(R.string.passwordFor);
                         signUp.setText(R.string.create_account); //btn
                         forgotPassword.setText(R.string.forgotPassword); //btn
@@ -71,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
                         });
                         break;
                     case "Worker":
-                        Toast.makeText(MainActivity.this, spinnerVal, Toast.LENGTH_SHORT).show();
                         fyp.setText("");
                         signUp.setText("");
                         forgotPassword.setText("");
@@ -100,7 +111,68 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void toUserActivity() {
-        Toast.makeText(MainActivity.this, "User Login", Toast.LENGTH_SHORT).show();
+        String email = loginID.getText().toString().trim();
+        String pass = password.getText().toString();
+
+        if(!email.matches(emailPattern)){
+            loginID.setError("Invalid Email");
+            loginID.requestFocus();
+        }
+        else if(pass.isEmpty() || pass.length()<8){
+            password.setError("Enter a valid password");
+            password.requestFocus();
+        }
+        else{
+            progressDialog.setMessage("Please wait..");
+            progressDialog.setTitle("Logging In");
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
+
+            mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    progressDialog.dismiss();
+                    if(task.isSuccessful()){
+                        if(mAuth.getCurrentUser().isEmailVerified()){
+                            Toast.makeText(MainActivity.this, "Successful Login", Toast.LENGTH_SHORT).show();
+                            toUserMain();
+                        }
+                        else{
+                            loginID.setError("Please verify your email");
+                            loginID.requestFocus();
+                            fyp.setText(R.string.not_received_email);
+                            forgotPassword.setText(R.string.resend);
+                            forgotPassword.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(task.isSuccessful()){
+                                                Toast.makeText(MainActivity.this, "Verification Email Sent", Toast.LENGTH_LONG).show();
+                                            }
+                                            else{
+                                                Toast.makeText(MainActivity.this, "Can't send verification email", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    }
+                    else{
+                        Toast.makeText(MainActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+        }
+    }
+
+    private void toUserMain() {
+        Intent intent = new Intent(MainActivity.this,userMainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void signUpIntent() {
@@ -109,6 +181,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void forgotPasswordDialog() {
-        Toast.makeText(MainActivity.this, "FYP", Toast.LENGTH_SHORT).show();
+        EditText resetMail = new EditText(this);
+        resetMail.setHint("Registered email id");
+        AlertDialog.Builder passwordresetDialog = new AlertDialog.Builder(this);
+        passwordresetDialog.setTitle("Reset Password?");
+        passwordresetDialog.setMessage("Enter your registered email");
+        passwordresetDialog.setView(resetMail);
+        passwordresetDialog.setPositiveButton("confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String mail=resetMail.getText().toString();
+                if(!(mail.matches(emailPattern))){
+                    resetMail.setError("Enter a valid email");
+                    resetMail.requestFocus();
+                }
+                mAuth.sendPasswordResetEmail(mail).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(MainActivity.this, "Reset link sent to your email", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(MainActivity.this, "Try Again after some time", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+        passwordresetDialog.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        passwordresetDialog.create().show();
     }
 }

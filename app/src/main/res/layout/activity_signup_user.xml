@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -30,7 +33,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="590dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="32dp"
         android:paddingEnd="32dp"
@@ -127,6 +130,27 @@
             android:padding="12dp"
             android:textColor="#707070"
             android:textSize="18sp" />
+        <TextView
+            android:id="@+id/mobileNoTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/phone_no"
+            android:textColor="#000000"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/mobileNoEditText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/edit_text_background"
+            android:hint="@string/enter_your_phone_number"
+            android:inputType="number"
+            android:maxLength="10"
+            android:padding="12dp"
+            android:textColor="#707070"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/buttonSignUp"
@@ -176,3 +200,4 @@
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
