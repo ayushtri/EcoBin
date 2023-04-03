@@ -13,9 +13,12 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -60,25 +63,11 @@ public class userMainActivity extends AppCompatActivity implements NavigationVie
         drawerLayout.closeDrawer(GravityCompat.START);
         switch(item.getItemId()){
             case R.id.home:
-                Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
                 replaceFragement(new userHomeFragment());
                 return true;
             case R.id.profile:
-                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
                 replaceFragement(new userProfileFragement());
                 return true;
-                case R.id.aboutUs:
-                    AlertDialog.Builder aboutUS = new AlertDialog.Builder(this);
-                    aboutUS.setTitle("About Us");
-                    aboutUS.setMessage(R.string.aboutUS);
-                    aboutUS.setNegativeButton("ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                        }
-                    });
-                    aboutUS.create().show();
-                    return true;
             case R.id.logoutMenu:
                 Toast.makeText(this, "Logged Out", Toast.LENGTH_SHORT).show();
                 FirebaseAuth.getInstance().signOut();
@@ -102,5 +91,33 @@ public class userMainActivity extends AppCompatActivity implements NavigationVie
             drawerLayout.closeDrawer(GravityCompat.START);
         else
             super.onBackPressed();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.action_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem item) {
+                AlertDialog.Builder aboutUS = new AlertDialog.Builder(userMainActivity.this);
+                aboutUS.setTitle("About Us");
+                aboutUS.setMessage(R.string.aboutUS);
+                aboutUS.setNegativeButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                aboutUS.create().show();
+                return true;
+            }
+        });
+        return super.onOptionsItemSelected(item);
     }
 }

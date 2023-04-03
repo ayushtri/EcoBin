@@ -7,9 +7,6 @@
     <item android:id="@+id/profile"
         android:title="@string/profile"
         android:icon="@drawable/profile" />
-    <item android:id="@+id/aboutUs"
-        android:icon="@drawable/about"
-        android:title="@string/about_us" />
     <item android:id="@+id/logoutMenu"
         android:icon="@drawable/logoutvector"
         android:title="@string/logoutNB" />

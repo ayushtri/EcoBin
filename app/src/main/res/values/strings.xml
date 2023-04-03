@@ -38,4 +38,14 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home">Home</string>
+    <string name="name">Name</string>
+    <string name="request_service">Request Service</string>
+    <string name="track_request">Track Request</string>
+    <string name="subject">Subject</string>
+    <string name="query">Query</string>
+    <string name="address">Address</string>
+    <string name="mark_map">Mark on map</string>
+    <string name="submit">Submit</string>
+    <string name="confirmMsg">Are you certain that you want to proceed with registering this query?\n Please note that this prompt is requesting for your confirmation.</string>
+    <string name="warningMsgMap">ℹ️Ignore the map if it shows a different location,\n\t\t enter the address and click submit</string>
 </resources>

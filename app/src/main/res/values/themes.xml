@@ -20,4 +20,8 @@
         <item name="android:statusBarColor">#673AB7</item>
         <item name="colorPrimary">@color/purple_500</item>
     </style>
+    <style name="normalTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:statusBarColor">#673AB7</item>
+        <item name="colorPrimary">#673AB7</item>
+    </style>
 </resources>
