@@ -27,15 +27,12 @@ public class workerMainActivity extends AppCompatActivity implements NavigationV
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
-    String username;
+    //String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_worker_main);
-
-        Intent i = getIntent();
-        username = i.getStringExtra("userName");
 
         drawerLayout = findViewById(R.id.drawerLayoutWorker);
         navigationView = findViewById(R.id.navigationViewWorker);
@@ -73,14 +70,7 @@ public class workerMainActivity extends AppCompatActivity implements NavigationV
                 replaceFragement(new workerHomeFragment());
                 return true;
             case R.id.profile:
-                //replaceFragement(new workerProfileFragment());
-                workerProfileFragment frag = new workerProfileFragment();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager()
-                        .beginTransaction();
-                Bundle bundle = new Bundle();
-                bundle.putString("userName",username);
-                frag.setArguments(bundle);
-                fragmentTransaction.replace(R.id.fragment_container_worker, frag).commit();
+                replaceFragement(new workerProfileFragment());
                 return true;
             case R.id.logoutMenu:
                 Toast.makeText(this, "Logged Out", Toast.LENGTH_SHORT).show();
@@ -97,8 +87,10 @@ public class workerMainActivity extends AppCompatActivity implements NavigationV
     public void onBackPressed() {
         if(drawerLayout.isDrawerOpen(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START);
-        else
-            super.onBackPressed();
+        else{
+            //super.onBackPressed();
+            finishAffinity();
+        }
     }
     private void replaceFragement(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();

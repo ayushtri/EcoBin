@@ -18,9 +18,14 @@
         android:theme="@style/Theme.EcoBin"
         tools:targetApi="31">
         <activity
-            android:name=".workerMainActivity"
-            android:theme="@style/insideTheme"
+            android:name=".workerViewComplaint"
+            android:parentActivityName=".workerMainActivity"
+            android:theme="@style/normalTheme"
             android:exported="false" />
+        <activity
+            android:name=".workerMainActivity"
+            android:exported="false"
+            android:theme="@style/insideTheme" />
         <activity
             android:name=".userViewComplaint"
             android:exported="false"

@@ -46,8 +46,8 @@
     <string name="address">Address</string>
     <string name="mark_map">Mark on map</string>
     <string name="submit">Submit</string>
-    <string name="confirmMsg">Are you certain that you want to proceed with registering this query?\n Please note that this prompt is requesting for your confirmation.</string>
-    <string name="warningMsgMap">ℹ️Ignore the map if it shows a different location,\n\t\t enter the address and click submit</string>
+    <string name="confirmMsg">Are you sure that you want to proceed with registering this query?</string>
+    <string name="warningMsgMap">ℹ️Disable the mark map if map shows a different \t\t\tlocation and enter the address manually</string>
     <string name="status"><b><u>status</u>:\u0020</b></string>
     <string name="pending">pending</string>
     <string name="subject_will_come_here">Subject will come here</string>
@@ -62,4 +62,18 @@
     <string name="addressColon"><b><u>Address</u>:\u0020</b></string>
     <string name="statusColon"><b><u>Status</u>:\u0020</b></string>
     <string name="delete_request">Delete Request</string>
+    <string name="user_subject">User Subject</string>
+    <string name="user_query">User Query</string>
+    <string name="user_address">User Address</string>
+    <string name="user_full_name">User Full Name</string>
+    <string name="useremail_somthing_com">useremail@somthing.com</string>
+    <string name="navigate_to_address">Navigate to address</string>
+    <string name="mark_address_on_map">Mark Address on Map</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="mark_mapColon"><b><u>Mark Map</u>:\u0020</b></string>
+    <string name="mark_as_completed">Mark as completed\u0020</string>
+    <string name="confirm">Confirm</string>
+    <string name="completed">completed</string>
+    <string name="set_status"><b><u>Set Status</u>:\u0020</b></string>
 </resources>

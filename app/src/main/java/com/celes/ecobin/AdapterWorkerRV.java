@@ -8,18 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class AdapterUserRV extends RecyclerView.Adapter<AdapterUserRV.MyViewHolder> {
+public class AdapterWorkerRV extends RecyclerView.Adapter<AdapterWorkerRV.MyViewHolder> {
     Context context;
     ArrayList<Complaint> list;
 
-    public AdapterUserRV(Context context, ArrayList<Complaint> list) {
+    public AdapterWorkerRV(Context context, ArrayList<Complaint> list) {
         this.context = context;
         this.list = list;
     }
@@ -59,12 +58,12 @@ public class AdapterUserRV extends RecyclerView.Adapter<AdapterUserRV.MyViewHold
                 public void onClick(View v) {
                     Complaint complaint = list.get(getAdapterPosition());
                     String complaintID=complaint.compID;
-                    Intent intent = new Intent(v.getContext(),userViewComplaint.class);
+                    Intent intent = new Intent(v.getContext(),workerViewComplaint.class);
                     intent.putExtra("comID",complaintID);
                     v.getContext().startActivity(intent);
-                    ((Activity)context).finish();
                 }
             });
         }
     }
+
 }

@@ -133,8 +133,9 @@ public class MainActivity extends AppCompatActivity {
         String username = loginID.getText().toString().trim();
         String pass = password.getText().toString();
 
-        if(username.isEmpty()){
-            loginID.setError("Please enter a username");
+        if(username.isEmpty() || username.contains(".") || username.contains("#") || username.contains("$")
+                || username.contains("[")  || username.contains("]")){
+            loginID.setError("Please enter a valid username");
             loginID.requestFocus();
         } else if (pass.isEmpty()) {
             password.setError("Enter a valid password");
@@ -148,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
                         Worker worker = snapshot.getValue(Worker.class);
                         String passCheck = worker.password;
                         if(passCheck.equals(pass)){
-                            Toast.makeText(MainActivity.this, "Match", Toast.LENGTH_SHORT).show();
                             editor.putString("isLogin","yes");
                             editor.putString("userName",worker.username);
                             editor.commit();

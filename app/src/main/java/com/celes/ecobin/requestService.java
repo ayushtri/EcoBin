@@ -3,6 +3,7 @@ package com.celes.ecobin;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -15,6 +16,7 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -34,6 +36,9 @@ public class requestService extends AppCompatActivity implements LocationSendAct
     String add;
     DatabaseReference databaseReference;
     ProgressDialog progressDialog;
+    String lati, longi;
+    SwitchCompat switchCompat;
+    String markMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,24 @@ public class requestService extends AppCompatActivity implements LocationSendAct
         addressField = findViewById(R.id.address_et);
         submitBtn = findViewById(R.id.submitBtn);
         progressDialog = new ProgressDialog(requestService.this);
+        switchCompat = findViewById(R.id.switch1);
+
+        markMap="yes";
+        addressField.setFocusableInTouchMode(false);
+        addressField.clearFocus();
+        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(switchCompat.isChecked()){
+                    markMap="yes";
+                    addressField.setFocusableInTouchMode(false);
+                    addressField.clearFocus();
+                } else {
+                    markMap="no";
+                    addressField.setFocusableInTouchMode(true);
+                }
+            }
+        });
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +114,7 @@ public class requestService extends AppCompatActivity implements LocationSendAct
                     progressDialog.setCanceledOnTouchOutside(false);
                     progressDialog.show();
 
-                    Complaint complaint = new Complaint(uid,sub,que,add,"pending",compID);
+                    Complaint complaint = new Complaint(uid,sub,que,add,"pending",compID,lati,longi,markMap);
                     databaseReference.child(compID).setValue(complaint).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -128,7 +151,9 @@ public class requestService extends AppCompatActivity implements LocationSendAct
     }
 
     @Override
-    public void locationSend(String address) {
+    public void locationSend(String address, String latitude, String longitude) {
+        lati = latitude;
+        longi = longitude;
         addressField = findViewById(R.id.address_et);
         addressField.setText(address);
     }

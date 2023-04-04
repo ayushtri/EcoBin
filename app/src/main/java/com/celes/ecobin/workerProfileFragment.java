@@ -1,6 +1,8 @@
 package com.celes.ecobin;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,9 +23,9 @@ import com.google.firebase.database.ValueEventListener;
 public class workerProfileFragment extends Fragment {
     View view;
     TextView workerName, userName;
-    String userID;
     DatabaseReference databaseReference;
-
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,32 +38,30 @@ public class workerProfileFragment extends Fragment {
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Worker");
 
-        Bundle bundle = getArguments();
-        if(bundle!=null){
-            userID = bundle.getString("userName");
-            databaseReference.child(userID).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists()){
-                        String wName = String.valueOf(snapshot.child("name").getValue());
-                        String wUsername = String.valueOf(snapshot.child("username").getValue());
+        sharedPreferences = getActivity().getSharedPreferences("workerLogin", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
-                        workerName.setText(wName);
-                        userName.setText(wUsername);
-                    } else {
-                        Toast.makeText(getContext(), "Can't fetch data", Toast.LENGTH_SHORT).show();
-                    }
+        String userID = sharedPreferences.getString("userName", "default :(");
+
+        databaseReference.child(userID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    String wName = String.valueOf(snapshot.child("name").getValue());
+                    String wUsername = String.valueOf(snapshot.child("username").getValue());
+
+                    workerName.setText(wName);
+                    userName.setText(wUsername);
+                } else {
+                    Toast.makeText(getContext(), "Can't fetch data", Toast.LENGTH_SHORT).show();
                 }
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                }
-            });
-        }
-
-
-
+            }
+        });
 
         return view;
     }

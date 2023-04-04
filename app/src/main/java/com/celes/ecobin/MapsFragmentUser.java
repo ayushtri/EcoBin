@@ -105,7 +105,9 @@ public class MapsFragmentUser extends Fragment{
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16f));
 
-                locationSendActivity.locationSend(addresses.get(0).getAddressLine(0));
+                locationSendActivity.locationSend(addresses.get(0).getAddressLine(0), String.valueOf(addresses.get(0).getLatitude())
+                        ,String.valueOf(addresses.get(0).getLongitude()));
+
 
                 mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
@@ -116,7 +118,8 @@ public class MapsFragmentUser extends Fragment{
 
                         try {
                             List<Address> addresses1 = geocoder1.getFromLocation(latLng.latitude,latLng.longitude,1);
-                            locationSendActivity.locationSend(addresses1.get(0).getAddressLine(0));
+                            locationSendActivity.locationSend(addresses1.get(0).getAddressLine(0), String.valueOf(addresses1.get(0).getLatitude())
+                                    ,String.valueOf(addresses1.get(0).getLongitude()));
 
                         } catch (IOException e) {
                             throw new RuntimeException(e);
