@@ -25,6 +25,9 @@
             android:layout_marginTop="12dp"
             android:background="@drawable/edit_text_background"
             android:ems="10"
+            android:inputType="text"
+            android:maxLines="1"
+            android:scrollHorizontally="true"
             android:hint="@string/subject"
             android:padding="12dp" />
 

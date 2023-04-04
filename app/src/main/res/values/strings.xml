@@ -48,4 +48,18 @@
     <string name="submit">Submit</string>
     <string name="confirmMsg">Are you certain that you want to proceed with registering this query?\n Please note that this prompt is requesting for your confirmation.</string>
     <string name="warningMsgMap">ℹ️Ignore the map if it shows a different location,\n\t\t enter the address and click submit</string>
+    <string name="status"><b><u>status</u>:\u0020</b></string>
+    <string name="pending">pending</string>
+    <string name="subject_will_come_here">Subject will come here</string>
+    <string name="your_name">Your Name</string>
+    <string name="nameColon"><b><u>Name</u>:\u0020</b></string>
+    <string name="emailColon"><b><u>Email</u>:\u0020</b></string>
+    <string name="phoneColon"><b><u>Phone NO</u>:\u0020</b></string>
+    <string name="youremail_something_com">youremail@something.com</string>
+    <string name="_1234567890">1234567890</string>
+    <string name="queryColon"><b><u>Query</u>:\u0020</b></string>
+    <string name="subjectColon"><b><u>Subject</u>:\u0020</b></string>
+    <string name="addressColon"><b><u>Address</u>:\u0020</b></string>
+    <string name="statusColon"><b><u>Status</u>:\u0020</b></string>
+    <string name="delete_request">Delete Request</string>
 </resources>

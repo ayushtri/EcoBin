@@ -67,6 +67,9 @@ public class requestService extends AppCompatActivity implements LocationSendAct
         if(sub.isEmpty()){
             subject.setError("Please enter a subject");
             subject.requestFocus();
+        } else if(sub.length()>50){
+            subject.setError("Subject should of less than 50 characters, including spaces");
+            subject.requestFocus();
         } else if (que.isEmpty()) {
             query.setError("Please enter a valid query");
             query.requestFocus();
@@ -88,7 +91,7 @@ public class requestService extends AppCompatActivity implements LocationSendAct
                     progressDialog.setCanceledOnTouchOutside(false);
                     progressDialog.show();
 
-                    Complaint complaint = new Complaint(uid,sub,que,add);
+                    Complaint complaint = new Complaint(uid,sub,que,add,"pending",compID);
                     databaseReference.child(compID).setValue(complaint).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -97,6 +100,7 @@ public class requestService extends AppCompatActivity implements LocationSendAct
                                 progressDialog.dismiss();
                                 Intent intent = new Intent(requestService.this,userMainActivity.class);
                                 startActivity(intent);
+                                finish();
                             } else {
                                 Toast.makeText(requestService.this, "Try again later", Toast.LENGTH_SHORT).show();
                                 progressDialog.dismiss();
