@@ -49,6 +49,8 @@ public class userProfileFragement extends Fragment {
                     name.setText(uName);
                     email.setText(uEmail);
                     phoneNO.setText(uPhone);
+                } else {
+                    Toast.makeText(getContext(), "Can't fetch data", Toast.LENGTH_SHORT).show();
                 }
             }
 

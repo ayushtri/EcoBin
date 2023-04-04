@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,6 +22,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
     EditText loginID,password;
@@ -29,11 +35,21 @@ public class MainActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     String emailPattern="^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
     FirebaseAuth mAuth;
+    DatabaseReference databaseReference;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sharedPreferences = getSharedPreferences("workerLogin",MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        String temp = sharedPreferences.getString("userName", "default :(");
+        if(sharedPreferences.getString("isLogin", "no").equals("yes")){
+            toWorkerActivityIntent(temp);
+        }
 
         Spinner spinner = findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.loginType, android.R.layout.simple_spinner_item);
@@ -106,8 +122,51 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void toWorkerActivityIntent(String userName) {
+        Intent intent = new Intent(MainActivity.this,workerMainActivity.class);
+        intent.putExtra("userName",userName);
+        startActivity(intent);
+        finish();
+    }
+
     private void toWorkerActivity() {
-        Toast.makeText(this, "Worker Activity", Toast.LENGTH_SHORT).show();
+        String username = loginID.getText().toString().trim();
+        String pass = password.getText().toString();
+
+        if(username.isEmpty()){
+            loginID.setError("Please enter a username");
+            loginID.requestFocus();
+        } else if (pass.isEmpty()) {
+            password.setError("Enter a valid password");
+            password.requestFocus();
+        } else {
+            databaseReference = FirebaseDatabase.getInstance().getReference("Worker");
+            databaseReference.child(username).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()) {
+                        Worker worker = snapshot.getValue(Worker.class);
+                        String passCheck = worker.password;
+                        if(passCheck.equals(pass)){
+                            Toast.makeText(MainActivity.this, "Match", Toast.LENGTH_SHORT).show();
+                            editor.putString("isLogin","yes");
+                            editor.putString("userName",worker.username);
+                            editor.commit();
+                            toWorkerActivityIntent(worker.username);
+                        } else {
+                            Toast.makeText(MainActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(MainActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
     }
 
     private void toUserActivity() {
