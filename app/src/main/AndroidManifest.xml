@@ -20,21 +20,25 @@
         <activity
             android:name=".workerViewComplaint"
             android:parentActivityName=".workerMainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/normalTheme"
             android:exported="false" />
         <activity
             android:name=".workerMainActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/insideTheme" />
         <activity
             android:name=".userViewComplaint"
             android:exported="false"
             android:parentActivityName=".trackRequestUser"
+            android:screenOrientation="portrait"
             android:theme="@style/normalTheme" />
         <activity
             android:name=".trackRequestUser"
             android:exported="false"
             android:parentActivityName=".userMainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/normalTheme" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
@@ -54,11 +58,13 @@
         <activity
             android:name=".requestService"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:parentActivityName=".userMainActivity"
             android:theme="@style/normalTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".userMainActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:theme="@style/insideTheme" />
         <activity

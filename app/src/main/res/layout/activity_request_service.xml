@@ -41,7 +41,7 @@
             android:gravity="start|top"
             android:hint="@string/query"
             android:inputType="textMultiLine"
-            android:lines="5"
+            android:lines="3"
             android:minHeight="48dp"
             android:overScrollMode="always"
             android:padding="12dp"
@@ -85,7 +85,7 @@
 
         <Button
             android:id="@+id/submitBtn"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:textColor="#ffffff"
